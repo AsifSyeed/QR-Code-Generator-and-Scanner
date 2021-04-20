@@ -23,9 +23,16 @@
         </div>
 
         <div id="box2">
+            <div id="scanner">
+                <button id="stopBtn">STOP</button>
+                <div id="startBtn">
+                    <img src="camera.png" />
 
+                </div>
+                <video id="preview" class="p-1 border" style="width: 300px;"></video>
+                <div id="message2"></div>
+            </div>
         </div>
-    </div>
 </body>
 
 <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
@@ -44,7 +51,77 @@
         if (e.keyCode == 13) {
             makeCode();
         }
-    })
+    });
+</script>
+
+<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+<script type="text/javascript">
+    $('#button2').click(function() {
+        $('#main').animate({
+            'left': '-100%'
+        });
+        $('#button1').removeClass('active');
+        $('#button2').addClass('active');
+    });
+    $('#button1').click(function() {
+        $('#main').animate({
+            'right': '-100%'
+        });
+        $('#button2').removeClass('active');
+        $('#button1').addClass('active');
+    });
+
+    $('#stopBtn').click(function() {
+        $('#startBtn img').show();
+        $('#stopBtn').hide();
+        var videoE1 = document.getElementById('preview');
+        stream = videoE1.scrObject;
+        tracks = stream.getTracks();
+        tracks.forEach(function(track) {
+            track.stop();
+        });
+        videoE1.scrObject = null;
+
+    });
+
+    $('#startBtn').click(function() {
+        $('#startBtn img').hide();
+        $('#stopBtn').show();
+
+        var scanner = new Instascan.Scanner({
+            video: document.getElementById('preview'),
+            scanPeriod: 5,
+            mirror: false
+        });
+
+        scanner.addListener('scan', function(content) {
+            $('#message2').text(content);
+        });
+        Instascan.Camera.getCameras().then(function(cameras) {
+            if (cameras.length > 0) {
+                scanner.start(cameras[0]);
+                $('[name="option"]').on('change', function() {
+                    if ($(this).val() == 1) {
+                        if (cameras[0] != "") {
+                            scanner.start(cameras[0]);
+                        } else {
+                            alert('No front camera found');
+                        }
+                    } else if ($(this).val() == 2) {
+                        if (cameras[1] != "") {
+                            scanner.start(cameras[1]);
+                        } else {
+                            alert('No back camera found');
+                        }
+                    }
+                });
+            } else {
+                alert('No camera found');
+            }
+        }).catch(function(e) {
+            alert(e);
+        });
+    });
 </script>
 
 </html>

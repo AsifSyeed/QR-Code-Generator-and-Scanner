@@ -108,3 +108,65 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+#box2 {
+    background: #ffaa44;
+    background-image: url('camera.png');
+    background-repeat: no-repeat;
+    background-size: 350px;
+    background-position: center;
+}
+
+#title2 {
+    font-family: fantasy;
+    font-size: 40px;
+    color: white;
+    text-align: center;
+    bottom: 100px;
+    left: 50%;
+    transform: translateY(-50%);
+}
+
+#scanner video {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+}
+
+#message2 {
+    position: absolute;
+    top: 69%;
+    left: 42%;
+    font-family: arial;
+    font-size: 20px;
+}
+
+#startBtn {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    cursor: pointer;
+}
+
+#startBtn img {
+    width: 100px;
+}
+
+#stopBtn {
+    position: absolute;
+    top: 68%;
+    left: 53%;
+    height: 35px;
+    width: 100px;
+    background: #1a1a1a;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 10px;
+    display: none;
+}

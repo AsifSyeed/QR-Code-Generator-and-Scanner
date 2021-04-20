@@ -28,4 +28,23 @@
     </div>
 </body>
 
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+<script type="text/javascript">
+    var qrcode = new QRCode('output');
+
+    function makeCode() {
+        var input = document.getElementById('data');
+
+        qrcode.makeCode(input.value);
+    }
+
+    $('#data').on('blur', function() {
+        makeCode();
+    }).on('keydown', function(e) {
+        if (e.keyCode == 13) {
+            makeCode();
+        }
+    })
+</script>
+
 </html>
